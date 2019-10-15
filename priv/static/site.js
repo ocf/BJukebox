@@ -65,10 +65,12 @@ var name = null;
 
 /** The WebSocket connection */
 var sock = null
-
+var isAlive = true;
 var main_socket_handler = function (event) {
 	if (event.data === "ok") {
 		free_songentry();
+	} else if (event.data === "pong") {
+		isAlive = true;
 	} else if (event.data === "error") {
 		free_songentry();
 		document.getElementById("songurlerror").style.display = "inline";
@@ -184,6 +186,7 @@ function wsInit() {
 
 	sock.onopen = function (event) {
 		document.getElementById("starttext").style.display = "none";
+		document.getElementById("lostconn").style.display = "none";
 		var savedName = localStorage.getItem('bjb_name');
 		if (savedName) {
 			submitName(savedName);
@@ -220,6 +223,26 @@ function wsInit() {
 	}
 }
 
+function heartbeat() {
+	if (!sock || sock.readyState == 2 || sock.readyState == 3) {
+		document.getElementById("lostconn").style.display = "block";	
+		wsInit();
+	}
+	isAlive = false;
+	sock.send("ping");
+	setTimeout(checkIsAlive, 2000);
+}
+
+function checkIsAlive() {
+	if(!isAlive) {
+		document.getElementById("lostconn").style.display = "block";
+	} else {
+		document.getElementById("lostconn").style.display = "none";
+	}
+}
+
+
+
 function submitName(nameToSubmit) {
 	name = nameToSubmit;
 	sock.send(name);
@@ -227,6 +250,7 @@ function submitName(nameToSubmit) {
 
 window.onload = function() {
 	wsInit();
+	setInterval(heartbeat, 15000);
 
 	// make error messages disappear when we click on them
 	document.getElementById("songurlerror").onclick = function() {
