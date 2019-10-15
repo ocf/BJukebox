@@ -19,7 +19,7 @@ handle_call(_Msg, _From, S) ->
 	{noreply, S, 750}.
 
 handle_cast(connect, disconnected) ->
-	case gen_tcp:connect("127.0.0.1", 6600,
+	case gen_tcp:connect("tv.ocf.berkeley.edu", 6600,
 						 [binary,
 						  {active, true},
 						  {packet, line},
