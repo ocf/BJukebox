@@ -65,7 +65,10 @@ var name = null;
 
 /** The WebSocket connection */
 var sock = null
+
+/** Heartbeat variablee */
 var isAlive = true;
+
 var main_socket_handler = function (event) {
 	if (event.data === "ok") {
 		free_songentry();
@@ -241,8 +244,6 @@ function checkIsAlive() {
 	}
 }
 
-
-
 function submitName(nameToSubmit) {
 	name = nameToSubmit;
 	sock.send(name);
@@ -250,6 +251,8 @@ function submitName(nameToSubmit) {
 
 window.onload = function() {
 	wsInit();
+
+	// some reverse proxies terminate idle ws after 30 seconds
 	setInterval(heartbeat, 15000);
 
 	// make error messages disappear when we click on them
