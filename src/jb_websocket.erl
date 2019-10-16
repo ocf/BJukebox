@@ -28,6 +28,7 @@ websocket_handle({text, Msg}, Req, just_connected) ->
 	_ ->
 	    {reply, [{text, <<"error invalid">>}], Req, just_connected}
     end;
+
 websocket_handle({text, Msg}, Req, State) when is_record(State, state) ->
     LMsg = binary_to_list(Msg),
     case string:tokens(LMsg, " ") of
@@ -36,16 +37,23 @@ websocket_handle({text, Msg}, Req, State) when is_record(State, state) ->
 	    % When it does come back, it will come in the form of a
 	    % {match, Songtuple} raw message, handled in websocket_info.
 	    fetch_song_sup:get_metadata(
-	      string:substr(LMsg, string:len("queue") + 2));
+	      string:substr(LMsg, string:len("queue") + 2)),
+	    {ok, Req, State};
 	["remove", QueuePos] ->
 	    gen_server:cast(manager,
-			    {remove, State#state.name, list_to_integer(QueuePos)});
+			    {remove, State#state.name, list_to_integer(QueuePos)}),
+	    {ok, Req, State};
+	["ping"] ->
+	    {reply, [{text, <<"pong">>}], Req, State};
 	["skipme"] ->
-	    gen_server:cast(manager, skipme);
+	    gen_server:cast(manager, skipme),
+	    {ok, Req, State}; 
 	["volup"] ->
-	    gen_server:cast(jb_mpd, {voldelta, 2});
+	    gen_server:cast(jb_mpd, {voldelta, 2}),
+	    {ok, Req, State};
 	["voldown"] ->
-	    gen_server:cast(jb_mpd, {voldelta, -2});
+	    gen_server:cast(jb_mpd, {voldelta, -2}),
+	    {ok, Req, State};
 	["volumevote", OnTxt] ->
 	    VoteVar = case OnTxt of
 			  "novote" ->
@@ -53,11 +61,11 @@ websocket_handle({text, Msg}, Req, State) when is_record(State, state) ->
 			  VoteNumber ->
 			      list_to_integer(VoteNumber)
 		      end,
-	    gen_server:cast(manager, {volumevote, State#state.name, VoteVar});
+	    gen_server:cast(manager, {volumevote, State#state.name, VoteVar}),
+	    {ok, Req, State};
 	_ ->
-	    nothing
-    end,
-    {ok, Req, State};
+    	    {ok, Req, State}
+    end;
 websocket_handle(_Data, Req, State) ->
     {ok, Req, State}.
 
