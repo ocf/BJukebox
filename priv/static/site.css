@@ -1,13 +1,111 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+
 body {
 	font-family: 'Source Sans Pro', sans-serif;
+	background: url('replacable.jpg') no-repeat center #000;
+	background-size: auto 125%;
+	color: #fff;
+}
+
+header {
+	position: fixed;
+	width: 100%;
+	cursor: default;
+	text-align: center;
+}
+
+#heading {
+	font-family: 'Fascinate Inline', monospace;
+	font-size: 3em;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	margin-bottom: 0;
+
+	/* IDEA: Maybe have the heading pop up on click? */
+}
+
+main {
+	padding-top: 8em;
 }
 
 h2 {
 	font-weight: 600;
 }
 
+@keyframes pop-in {
+	from {
+		transform: translateY(-20px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
 #nameentry {
 	display: none;
+
+	/** Make it nice. */
+	position: absolute;
+	top: 20vh;
+	left: 20vw;
+	background: #111;
+	padding: 15px 30px;
+	border-radius: 6px;
+	box-sizing: border-box;
+	width: 60vw;
+
+	animation: 250ms pop-in ease;
+}
+
+button, input {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+#nameentry input {
+	font-family: monospace;
+	background: #1e1e1e;
+	color: #fff;
+	border-radius: 4px;
+	border: 2px solid transparent;
+	outline: none;
+	margin: 10px 0;
+	padding: 10px 15px;
+	font-size: 28px;
+	width: 100%;
+	box-sizing: border-box;
+	transition: 50ms ease-in-out border-color;
+}
+
+#nameentry input:focus {
+	background: #222;
+	border: 2px solid #a50bca;
+}
+
+#nameentry button {
+	background: transparent;
+	color: #888;
+	font-size: 16px;
+	font-weight: 600;
+	margin: 8px 0;
+	padding: 10px;
+	border: none;
+	cursor: pointer;
+	transition: 120ms ease-in-out;
+	transition-property: background-color padding color;
+}
+
+#nameentry button:hover {
+	background: #a50bca;
+	color: #fff;
+	padding: 10px 20px;
 }
 
 #interface {
@@ -81,7 +179,7 @@ h2 {
 }
 
 .errorbox {
-	color: maroon;
+	color: #d93434;
 	display: none;
 	cursor: pointer;
 }
