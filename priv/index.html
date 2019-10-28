@@ -24,35 +24,52 @@
 		<input id="input-name" type="text" autocomplete="username"/><br/>
 		<div>
 			<span></span>
-			<button id="b-entername">Go &#x2192;</button>
+			<button id="b-entername">Go</button>
 		</div>
 		
 		<div id="nameerror" class="errorbox"></div>
 	</div>
 	
-	<main>
-		<div id="interface">
-			<div id="namedisplaydiv">Your name is <span id="namedisplay" class="name"></span>. <button id="b-changename">Change name</button></div>
-			<label>Queue song URL: <input id="input-songurl" type="text" autocomplete="url"/></label>
-			<button id="b-songurl">Submit</button>
-			<span id="songurlerror" class="errorbox">There was an error!</span>
-			<div id="volumecontrols">
-				<button id="b-voldown">Decrease Volume</button>
-				<button id="b-volup">Increase Volume</button>
-				Current volume:&nbsp;
-				<span id="currentvol">?</span>
+	<main id="interface">
+		<div id="nowplaying">
+			<div id="disconnected">Couldn't connect to the MPD server!</div>
+			<div id="currentsong"></div>
+			<div id="currentplayer-descr">
+				<img id="currentplayer-disc" src="static/disc.svg" width="24"/>
+				<span id="currentplayer-msg">
+					<span id="currentplayer" class="name"></span> is currently playing...
+				</span>
 			</div>
-			<div id="nowplaying">
-				<h2>Now Playing</h2>
-				<div id="currentplayer-descr"><span id="currentplayer" class="name"></span> is currently playing...</div>
-				<div id="noplaying">Nothing is currently playing!</div>
-				<div id="disconnected">Couldn't connect to the MPD server!</div>
-				<div id="currentsong"></div>
+		</div>
+		<div id="noplaying">
+			<div>Nothing is currently playing!</div>
+		</div>
+		<div id="tab-menu">
+			<nav>
+				<div class="menu-item active" id="m-queue">Queue Song</div>
+				<div class="menu-item" id="m-settings">Settings</div>
+			</nav>
+
+			<div id="tab-queuesong">
+				<label>Queue song URL:</label>
+				<input id="input-songurl" type="text" autocomplete="url" placeholder="Place a Youtube url here..."/>
+				<button id="b-songurl">Queue</button>
 			</div>
-			<div id="queues">
-				<h2>Queue</h2>
-				<div id="queuelist"></div>
+
+			<div id="tab-settings">
+				<div id="namedisplaydiv">Your name is <span id="namedisplay" class="name"></span>. <button id="b-changename">Change name</button></div>
+				<span id="songurlerror" class="errorbox">There was an error!</span>
+				<div id="volumecontrols">
+					<button id="b-voldown">Decrease Volume</button>
+					<button id="b-volup">Increase Volume</button>
+					Current volume:&nbsp;
+					<span id="currentvol">?</span>
+				</div>
 			</div>
+		</div>
+		<div id="queues">
+			<h2>Queue</h2>
+			<div id="queuelist"></div>
 		</div>
 	</main>
 	
