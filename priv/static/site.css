@@ -276,21 +276,21 @@ main {
 }
 
 #b-changename {
-  margin-left: 0.5em;
+	margin-left: 0.5em;
 }
 
 #volumecontrols {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 #b-voldown, #b-volup {
-  margin-right: 1em;
+	margin-right: 1em;
 }
 
 #noplaying, #disconnected {
-  display: none;
-  font-weight: bold;
+	display: none;
+	font-weight: bold;
 }
 
 #queuelist {
@@ -324,10 +324,10 @@ main {
 }
 
 .b-remove:hover {
-  background: #d93434;
-  color: #ffffff;
-  text-decoration: none;
-  padding: 5px 10px;
+	background: #d93434;
+	color: #ffffff;
+	text-decoration: none;
+	padding: 5px 10px;
 }
 
 
