@@ -1,5 +1,3 @@
-BIN := venv/bin
-
 DOCKER_REVISION ?= testing-$(USER)
 DOCKER_TAG = docker-push.ocf.berkeley.edu/bjukebox:$(DOCKER_REVISION)
 RANDOM_PORT := $(shell expr $$(( 8000 + `id -u` % 1000 )))
