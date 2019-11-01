@@ -293,6 +293,21 @@ window.onload = function() {
 		sock.send("volup");
 	}
 
+	// Menu Items
+	document.getElementById("m-queue").onclick = function() {
+		document.getElementById("tab-queuesong").style.display = "block";
+		document.getElementById("tab-settings").style.display = "none";
+		document.getElementById("m-queue").classList.add("active")
+		document.getElementById("m-settings").classList.remove("active")
+	}
+
+	document.getElementById("m-settings").onclick = function() {
+		document.getElementById("tab-queuesong").style.display = "none";
+		document.getElementById("tab-settings").style.display = "block";
+		document.getElementById("m-settings").classList.add("active")
+		document.getElementById("m-queue").classList.remove("active")
+	}
+
 	window.addEventListener("keydown", function(e) {
 		var d = e.srcElement || e.target;
 		var key = e.keyCode || e.which;
