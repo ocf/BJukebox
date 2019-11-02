@@ -11,7 +11,7 @@ if "entries" in thing:
     thing = thing["entries"][0]
 
 print(thing["title"])
-if thing["thumbnail"]:
+if "thumbnail" in thing:
     print(thing["thumbnail"])
 else:
     print("")
